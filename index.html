@@ -6,7 +6,9 @@
 	  src: url("DS-DIGI.TTF");
 	}
 	#video-placeholder{
-		display: none;
+		/*display: none;*/
+		width: 0.5px;
+		height:0.5px;
 	}
 	button{
 		background: transparent;
@@ -15,7 +17,7 @@
 	button:focus{
 		outline: none;
 	}
-	.paralante{	
+	.parlante{	
 		margin-top:50px; 	
 		width: 100px;
 		height: 100px;
@@ -29,7 +31,7 @@
 	    display: flex;
 	    justify-content: space-around;
 	}
-	.paralante img{
+	.parlante img{
 		position: absolute;
 	}
 	.container-button{
@@ -71,7 +73,7 @@
 
 <body onload="startTime()">
 
-<div class="paralante">
+<div class="parlante">
 	<img id="parlante" src="parlante.png" width="100px">
 
 	<div class="container-button"> 
@@ -99,23 +101,23 @@
 
 	function onYouTubeIframeAPIReady() {
 		playif=true;
-	    player = new YT.Player('video-placeholder', {
-	        width: 600,
-	        height: 400,
-	        autoplay:1,
+
+	    player = new YT.Player('video-placeholder', {	        	        
 	        videoId: idVideo ,
 	        playerVars: {
 	        	autoplay: 1,
                 loop: 1,
-	            color: 'white',
-	            playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+	            color: 'white',	            
+	            playlist:idVideo
 	        },
 	        events: {
 	            onReady: initialize
 	        }
 	    });
 	    
+	    
 	   ifplay($('#play'));
+
 	}
 
 	function initialize(){
@@ -132,7 +134,10 @@
 	    time_update_interval = setInterval(function () {
 	        updateTimerDisplay();
 	        updateProgressBar();
+	        console.log("hola")	         
 	    }, 1000)
+
+
 
 
 
@@ -143,6 +148,7 @@
 			console.log('play')
 			$(this).html('<i class="fa fa-pause" aria-hidden="true"></i>');
 			player.playVideo();
+
 			
 		}else{
 			$(this).html('<i class="fa fa-play" aria-hidden="true"></i>');
@@ -154,13 +160,14 @@
 
 	function ifplay(boton){
 		console.log(playif)
-		console.log(boton);
+		console.log(boton);		
 		if(playif){
 			console.log('play');
 			$(boton).html('<i class="fa fa-pause" aria-hidden="true"></i>');		
 		}else{
 			$(boton).html('<i class="fa fa-play" aria-hidden="true"></i>');
 		}
+		player.setVolume(0);
 	}
 	$('#pause').on('click', function () {
 
